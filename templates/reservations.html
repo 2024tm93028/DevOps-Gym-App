@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservations</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Gym Reservations</h2>
+    <a href="{{ url_for('create_reservation') }}" class="btn btn-primary mb-3">Create Reservation</a>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-info">{{ messages[0] }}</div>
+      {% endif %}
+    {% endwith %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Machine</th>
+                <th>Time Slot</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Showed Up</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for r in reservations %}
+            <tr>
+                <td>{{ r.reservation_id }}</td>
+                <td>{{ r.machine }}</td>
+                <td>{{ r.time_slot }}</td>
+                <td>{{ r.date }}</td>
+                <td>{{ r.customer_name }}</td>
+                <td>{{ 'Yes' if r.showed_up else 'No' }}</td>
+                <td>
+                    <a href="{{ url_for('edit_reservation', reservation_id=r.reservation_id) }}" class="btn btn-sm btn-warning">Edit</a>
+                    <form action="{{ url_for('delete_reservation', reservation_id=r.reservation_id) }}" method="post" style="display:inline-block">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this reservation?')">Delete</button>
+                    </form>
+                    <form action="{{ url_for('mark_attendance', reservation_id=r.reservation_id) }}" method="post" style="display:inline-block">
+                        <input type="hidden" name="showed_up" value="{{ 'on' if not r.showed_up else '' }}">
+                        <button type="submit" class="btn btn-sm btn-info">Mark {{ 'Not Showed' if r.showed_up else 'Showed' }}</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

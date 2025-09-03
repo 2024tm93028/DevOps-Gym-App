@@ -1,0 +1,26 @@
+[
+  {
+    "reservation_id": 1,
+    "machine": "Treadmill",
+    "time_slot": "08:00-09:00",
+    "customer_id": 101,
+    "date": "2025-09-03"
+    ,"showed_up": true
+  },
+  {
+    "reservation_id": 2,
+    "machine": "Elliptical",
+    "time_slot": "09:00-10:00",
+    "customer_id": 102,
+    "date": "2025-09-03"
+    ,"showed_up": false
+  },
+  {
+    "reservation_id": 3,
+    "machine": "Bench Press",
+    "time_slot": "10:00-11:00",
+    "customer_id": 103,
+    "date": "2025-09-04"
+    ,"showed_up": true
+  }
+]
