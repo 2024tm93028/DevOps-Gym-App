@@ -126,3 +126,4 @@ def test_delete_workout(client):
 def test_delete_workout_invalid_index(client):
     response = client.post('/delete/99', follow_redirects=True)
     assert b'Invalid workout index.' in response.data
+
